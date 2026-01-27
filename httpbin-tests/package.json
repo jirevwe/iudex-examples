@@ -1,0 +1,16 @@
+{
+  "name": "iudex-httpbin-tests-example",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "HTTPBin API integration tests using Iudex",
+  "private": true,
+  "scripts": {
+    "test": "node ../../iudex/cli/iudex.js run httpbin.test.js"
+  },
+  "dependencies": {
+    "iudex": "file:../../iudex"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

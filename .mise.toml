@@ -4,42 +4,92 @@
 [tools]
 node = "18"
 
+# Dashboard Examples
+
 [tasks.express]
 description = "Run Express server with dashboard"
-run = "node dashboard/express-server.js"
+run = """
+cd express-dashboard
+npm install
+npm start
+"""
 
 [tasks.fastify]
 description = "Run Fastify server with dashboard"
-run = "node dashboard/fastify-server.js"
+run = """
+cd fastify-dashboard
+npm install
+npm start
+"""
 
 [tasks.standalone]
 description = "Run standalone HTTP server with dashboard"
-run = "node dashboard/standalone-server.js"
+run = """
+cd standalone-dashboard
+npm install
+npm start
+"""
 
-[tasks.test]
-alias = "test:all"
+# Test Examples
+
+[tasks."test:httpbin"]
+description = "Run HTTPBin integration tests"
+run = """
+cd httpbin-tests
+npm install
+npm test
+"""
+
+[tasks."test:simple"]
+description = "Run simple tests"
+run = """
+cd simple-tests
+npm install
+npm test
+"""
+
+[tasks."test:failures"]
+description = "Run failure case tests"
+run = """
+cd failure-tests
+npm install
+npm test
+"""
+
+[tasks."test:governance"]
+description = "Run governance and security tests"
+run = """
+cd governance-security-tests
+npm install
+npm test
+"""
+
+[tasks."test:all"]
+alias = "test"
 description = "Run all tests"
 run = [
-  "npm run test:api",
-  "npm run test:browser"
+  "mise run test:httpbin",
+  "mise run test:simple",
+  "mise run test:failures",
+  "mise run test:governance"
 ]
 
-[tasks."test:api"]
-description = "Test dashboard API endpoints"
-run = "node dashboard/test-api.js"
-
-[tasks."test:browser"]
-description = "Test dashboard in headless browser"
-run = "node dashboard/test-browser.js"
+# Utility Tasks
 
 [tasks.install]
-description = "Install dependencies"
-run = "npm install"
+description = "Install dependencies for all examples"
+run = """
+for dir in express-dashboard fastify-dashboard standalone-dashboard httpbin-tests simple-tests failure-tests governance-security-tests; do
+  echo "Installing dependencies in $dir..."
+  cd $dir && npm install && cd ..
+done
+"""
 
 [tasks.clean]
-description = "Clean node_modules"
-run = "rm -rf node_modules package-lock.json"
-
-[tasks.dev]
-description = "Run Express server in development mode"
-run = "node --watch dashboard/express-server.js"
+description = "Clean node_modules from all examples"
+run = """
+for dir in express-dashboard fastify-dashboard standalone-dashboard httpbin-tests simple-tests failure-tests governance-security-tests; do
+  echo "Cleaning $dir..."
+  rm -rf $dir/node_modules $dir/package-lock.json
+done
+"""

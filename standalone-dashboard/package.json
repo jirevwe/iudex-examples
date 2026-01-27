@@ -1,0 +1,17 @@
+{
+  "name": "iudex-standalone-dashboard-example",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Standalone HTTP server with Iudex dashboard",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "iudex": "file:../../iudex"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

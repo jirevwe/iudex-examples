@@ -1,0 +1,16 @@
+{
+  "name": "iudex-failure-tests-example",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Failure case tests using Iudex",
+  "private": true,
+  "scripts": {
+    "test": "node ../../iudex/cli/iudex.js run with-failures.test.js"
+  },
+  "dependencies": {
+    "iudex": "file:../../iudex"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

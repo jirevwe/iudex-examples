@@ -1,0 +1,16 @@
+{
+  "name": "iudex-governance-security-tests-example",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Governance and security check examples using Iudex",
+  "private": true,
+  "scripts": {
+    "test": "node ../../iudex/cli/iudex.js run governance-security-demo.test.js"
+  },
+  "dependencies": {
+    "iudex": "file:../../iudex"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

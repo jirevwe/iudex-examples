@@ -1,0 +1,16 @@
+{
+  "name": "iudex-simple-tests-example",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Simple test examples using Iudex",
+  "private": true,
+  "scripts": {
+    "test": "node ../../iudex/cli/iudex.js run simple.test.js"
+  },
+  "dependencies": {
+    "iudex": "file:../../iudex"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
