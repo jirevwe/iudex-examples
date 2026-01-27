@@ -1,0 +1,45 @@
+# mise configuration for iudex-examples
+# https://mise.jdx.dev/
+
+[tools]
+node = "18"
+
+[tasks.express]
+description = "Run Express server with dashboard"
+run = "node dashboard/express-server.js"
+
+[tasks.fastify]
+description = "Run Fastify server with dashboard"
+run = "node dashboard/fastify-server.js"
+
+[tasks.standalone]
+description = "Run standalone HTTP server with dashboard"
+run = "node dashboard/standalone-server.js"
+
+[tasks.test]
+alias = "test:all"
+description = "Run all tests"
+run = [
+  "npm run test:api",
+  "npm run test:browser"
+]
+
+[tasks."test:api"]
+description = "Test dashboard API endpoints"
+run = "node dashboard/test-api.js"
+
+[tasks."test:browser"]
+description = "Test dashboard in headless browser"
+run = "node dashboard/test-browser.js"
+
+[tasks.install]
+description = "Install dependencies"
+run = "npm install"
+
+[tasks.clean]
+description = "Clean node_modules"
+run = "rm -rf node_modules package-lock.json"
+
+[tasks.dev]
+description = "Run Express server in development mode"
+run = "node --watch dashboard/express-server.js"

@@ -1,0 +1,34 @@
+{
+  "name": "iudex-examples",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Example applications demonstrating Iudex API testing framework",
+  "private": true,
+  "scripts": {
+    "express": "node dashboard/express-server.js",
+    "fastify": "node dashboard/fastify-server.js",
+    "standalone": "node dashboard/standalone-server.js",
+    "test:api": "node dashboard/test-api.js",
+    "test:browser": "node dashboard/test-browser.js"
+  },
+  "keywords": [
+    "iudex",
+    "api-testing",
+    "examples",
+    "dashboard"
+  ],
+  "author": "Raymond Tukpe",
+  "license": "MIT",
+  "dependencies": {
+    "iudex": "file:../iudex",
+    "express": "^4.18.2",
+    "fastify": "^4.25.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "playwright": "^1.58.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
