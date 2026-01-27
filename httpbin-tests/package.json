@@ -10,6 +10,9 @@
   "dependencies": {
     "iudex": "file:../../iudex"
   },
+  "devDependencies": {
+    "playwright": "^1.58.0"
+  },
   "engines": {
     "node": ">=18.0.0"
   }
