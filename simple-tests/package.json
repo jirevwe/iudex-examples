@@ -5,7 +5,7 @@
   "description": "Simple test examples using Iudex",
   "private": true,
   "scripts": {
-    "test": "node ../../iudex/cli/iudex.js run simple.test.js"
+    "test": "node ../../iudex/cli/index.js run simple.test.js"
   },
   "dependencies": {
     "iudex": "file:../../iudex"

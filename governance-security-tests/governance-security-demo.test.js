@@ -1,7 +1,7 @@
 // Governance & Security Demo Tests
 // This file demonstrates various governance violations and security findings
 
-import { describe, test, expect } from '../core/dsl.js';
+import { describe, test, expect } from 'iudex';
 
 describe('Governance Violations Demo', () => {
 

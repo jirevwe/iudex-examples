@@ -5,7 +5,7 @@
   "description": "Governance and security check examples using Iudex",
   "private": true,
   "scripts": {
-    "test": "node ../../iudex/cli/iudex.js run governance-security-demo.test.js"
+    "test": "node ../../iudex/cli/index.js run governance-security-demo.test.js"
   },
   "dependencies": {
     "iudex": "file:../../iudex"

@@ -5,7 +5,7 @@
   "description": "Failure case tests using Iudex",
   "private": true,
   "scripts": {
-    "test": "node ../../iudex/cli/iudex.js run with-failures.test.js"
+    "test": "node ../../iudex/cli/index.js run with-failures.test.js"
   },
   "dependencies": {
     "iudex": "file:../../iudex"

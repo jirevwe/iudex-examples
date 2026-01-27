@@ -1,5 +1,5 @@
 // Integration test with failures
-import { describe, test, expect } from '../core/dsl.js';
+import { describe, test, expect } from 'iudex';
 
 describe('Tests with Failures', () => {
     test('should pass', async () => {

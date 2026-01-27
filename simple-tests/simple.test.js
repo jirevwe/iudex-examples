@@ -1,5 +1,5 @@
 // Simple integration test
-import { describe, test, expect } from '../core/dsl.js';
+import { describe, test, expect } from 'iudex';
 
 describe('Simple Integration Test', () => {
     test('should pass', async () => {

@@ -1,4 +1,4 @@
-import {describe, test, expect, beforeEach, afterEach} from '../core/dsl.js';
+import {describe, test, expect, beforeEach, afterEach} from 'iudex';
 
 describe('Removal Tests', {prefix: 'saas.ui'}, () => {
     test('should display welcome message', async (context) => {
