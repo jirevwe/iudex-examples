@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "iudex": "file:../../iudex",
-    "fastify": "^4.25.0"
+    "fastify": "^4.25.0",
+    "pino-pretty": "^11.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
