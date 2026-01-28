@@ -1,0 +1,30 @@
+{
+  "name": "iudex-dashboard-github-pages-example",
+  "version": "1.0.0",
+  "description": "Example of generating a static dashboard for GitHub Pages deployment",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../iudex/cli/index.js run tests/**/*.test.js",
+    "test:watch": "nodemon --watch tests --exec npm test",
+    "generate-dashboard": "npm test",
+    "serve-dashboard": "cd docs && python3 -m http.server 8000",
+    "verify": "node verify-dashboard.js",
+    "deploy": "gh-pages -d docs"
+  },
+  "dependencies": {
+    "iudex": "file:../../iudex"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1",
+    "nodemon": "^3.0.2"
+  },
+  "keywords": [
+    "iudex",
+    "api-testing",
+    "github-pages",
+    "static-dashboard",
+    "example"
+  ],
+  "author": "",
+  "license": "MIT"
+}

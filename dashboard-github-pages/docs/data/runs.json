@@ -1,0 +1,116 @@
+{
+  "runs": [
+    {
+      "id": "run-2026-01-28T14-56-10",
+      "timestamp": "1970-01-01T00:00:00.000Z",
+      "summary": {
+        "total": 16,
+        "passed": 6,
+        "failed": 10,
+        "skipped": 0,
+        "duration": 6388,
+        "startTime": 1769612164118,
+        "endTime": 1769612170506
+      },
+      "gitInfo": null,
+      "governance": {
+        "violationCount": 0,
+        "warningCount": 15
+      },
+      "security": {
+        "findingCount": 46,
+        "criticalCount": 12
+      }
+    },
+    {
+      "id": "run-2026-01-28T14-57-32",
+      "timestamp": "1970-01-01T00:00:00.000Z",
+      "summary": {
+        "total": 16,
+        "passed": 6,
+        "failed": 10,
+        "skipped": 0,
+        "duration": 8732,
+        "startTime": 1769612243433,
+        "endTime": 1769612252165
+      },
+      "gitInfo": null,
+      "governance": {
+        "violationCount": 0,
+        "warningCount": 15
+      },
+      "security": {
+        "findingCount": 46,
+        "criticalCount": 12
+      }
+    },
+    {
+      "id": "run-2026-01-28T15-05-29",
+      "timestamp": "1970-01-01T00:00:00.000Z",
+      "summary": {
+        "total": 16,
+        "passed": 6,
+        "failed": 10,
+        "skipped": 0,
+        "duration": 10829,
+        "startTime": 1769612718540,
+        "endTime": 1769612729369
+      },
+      "gitInfo": null,
+      "governance": {
+        "violationCount": 0,
+        "warningCount": 15
+      },
+      "security": {
+        "findingCount": 46,
+        "criticalCount": 12
+      }
+    },
+    {
+      "id": "run-2026-01-28T15-17-02",
+      "timestamp": "1970-01-01T00:00:00.000Z",
+      "summary": {
+        "total": 16,
+        "passed": 6,
+        "failed": 10,
+        "skipped": 0,
+        "duration": 8662,
+        "startTime": 1769613413497,
+        "endTime": 1769613422159
+      },
+      "gitInfo": null,
+      "governance": {
+        "violationCount": 0,
+        "warningCount": 15
+      },
+      "security": {
+        "findingCount": 46,
+        "criticalCount": 12
+      }
+    },
+    {
+      "id": "run-2026-01-28T15-26-15",
+      "timestamp": "1970-01-01T00:00:00.000Z",
+      "summary": {
+        "total": 16,
+        "passed": 6,
+        "failed": 10,
+        "skipped": 0,
+        "duration": 7980,
+        "startTime": 1769613967343,
+        "endTime": 1769613975323
+      },
+      "gitInfo": null,
+      "governance": {
+        "violationCount": 0,
+        "warningCount": 15
+      },
+      "security": {
+        "findingCount": 46,
+        "criticalCount": 12
+      }
+    }
+  ],
+  "latest": "run-2026-01-28T14-56-10",
+  "generated": "2026-01-28T15:26:15.337Z"
+}
