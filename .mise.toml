@@ -2,22 +2,43 @@
 # https://mise.jdx.dev/
 
 [tools]
-node = "18"
+node = "24.10.0"
 
 # Dashboard Examples
+
+[tasks."github-pages"]
+description = "Generate GitHub Pages static dashboard"
+run = """
+cd dashboard-github-pages
+npm install
+npm test
+"""
+
+[tasks."serve:github-pages"]
+description = "Preview GitHub Pages dashboard locally"
+run = """
+cd dashboard-github-pages
+npm run serve-dashboard
+"""
+
+[tasks."verify:github-pages"]
+description = "Verify GitHub Pages dashboard generation"
+run = """
+cd dashboard-github-pages
+npm run verify
+"""
+
+[tasks."deploy:github-pages"]
+description = "Deploy GitHub Pages dashboard to gh-pages branch"
+run = """
+cd dashboard-github-pages
+npm run deploy
+"""
 
 [tasks.express]
 description = "Run Express server with dashboard"
 run = """
-cd express-dashboard
-npm install
-npm start
-"""
-
-[tasks.fastify]
-description = "Run Fastify server with dashboard"
-run = """
-cd fastify-dashboard
+cd dashboard-express
 npm install
 npm start
 """
@@ -25,7 +46,7 @@ npm start
 [tasks.standalone]
 description = "Run standalone HTTP server with dashboard"
 run = """
-cd standalone-dashboard
+cd dashboard-standalone
 npm install
 npm start
 """
@@ -68,6 +89,7 @@ npm test
 alias = "test"
 description = "Run all tests"
 run = [
+  "mise run github-pages",
   "mise run test:httpbin",
   "mise run test:simple",
   "mise run test:failures",
@@ -79,7 +101,7 @@ run = [
 [tasks.install]
 description = "Install dependencies for all examples"
 run = """
-for dir in express-dashboard fastify-dashboard standalone-dashboard httpbin-tests simple-tests failure-tests governance-security-tests; do
+for dir in dashboard-github-pages dashboard-express dashboard-standalone httpbin-tests simple-tests failure-tests governance-security-tests; do
   echo "Installing dependencies in $dir..."
   cd $dir && npm install && cd ..
 done
@@ -88,7 +110,7 @@ done
 [tasks.clean]
 description = "Clean node_modules from all examples"
 run = """
-for dir in express-dashboard fastify-dashboard standalone-dashboard httpbin-tests simple-tests failure-tests governance-security-tests; do
+for dir in dashboard-github-pages dashboard-express dashboard-standalone httpbin-tests simple-tests failure-tests governance-security-tests; do
   echo "Cleaning $dir..."
   rm -rf $dir/node_modules $dir/package-lock.json
 done

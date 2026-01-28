@@ -4,7 +4,7 @@
  * Example: Standalone HTTP Server with Iudex Dashboard
  *
  * This example demonstrates a minimal standalone dashboard server
- * using raw Node.js HTTP (no Express or Fastify required).
+ * using raw Node.js HTTP (no Express required).
  */
 
 import { createStandaloneDashboardServer } from 'iudex/server/http';

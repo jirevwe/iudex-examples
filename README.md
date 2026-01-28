@@ -1,6 +1,6 @@
 # Iudex Examples
 
-Example applications demonstrating how to use the [Iudex](../iudex) API testing framework.
+Example applications demonstrating how to use the [Iudex](https://github.com/jirevwe/iudex) API testing framework.
 
 ## Overview
 
@@ -8,9 +8,9 @@ This repository contains working examples of Iudex integration, organized into s
 
 ### Dashboard Integration Examples
 
-- **express-dashboard** - Express.js server with Iudex dashboard middleware
-- **fastify-dashboard** - Fastify server with Iudex dashboard plugin
-- **standalone-dashboard** - Minimal Node.js HTTP server (no framework)
+- **dashboard-github-pages** - Static dashboard for GitHub Pages deployment (NEW! ⭐)
+- **dashboard-express** - Express.js server with Iudex dashboard middleware
+- **dashboard-standalone** - Minimal Node.js HTTP server (no framework)
 
 ### Test Examples
 
@@ -32,17 +32,22 @@ Each example is self-contained with its own dependencies. You can run them indiv
 ### Using mise (Recommended)
 
 ```bash
+# GitHub Pages Dashboard
+mise run github-pages          # Run tests and generate static dashboard
+mise run serve:github-pages    # Preview dashboard locally
+mise run verify:github-pages   # Verify dashboard generation
+mise run deploy:github-pages   # Deploy to gh-pages branch
+
 # Run dashboard servers
-mise run express       # Express on port 3000
-mise run fastify       # Fastify on port 3001
-mise run standalone    # HTTP on port 8080
+mise run express               # Express on port 3000
+mise run standalone            # HTTP on port 8080
 
 # Run tests
 mise run test:httpbin
 mise run test:simple
 mise run test:failures
 mise run test:governance
-mise run test:all      # Run all tests
+mise run test:all              # Run all tests (includes github-pages)
 
 # Install all dependencies
 mise run install
@@ -56,18 +61,19 @@ mise run clean
 Each example can be run independently:
 
 ```bash
+# GitHub Pages Dashboard (Static)
+cd dashboard-github-pages
+npm install
+npm test               # Generate dashboard
+npm run serve-dashboard # http://localhost:8000
+
 # Express Dashboard
-cd express-dashboard
+cd dashboard-express
 npm install
 npm start              # http://localhost:3000/test-dashboard
 
-# Fastify Dashboard
-cd fastify-dashboard
-npm install
-npm start              # http://localhost:3001/test-dashboard
-
 # Standalone Dashboard
-cd standalone-dashboard
+cd dashboard-standalone
 npm install
 npm start              # http://localhost:8080
 
@@ -81,13 +87,18 @@ npm test
 
 ```
 iudex-examples/
-├── express-dashboard/          # Express integration
+├── dashboard-github-pages/    # GitHub Pages static dashboard (NEW!)
+│   ├── tests/
+│   │   └── api.test.js
+│   ├── .github/workflows/
+│   │   └── test-and-deploy.yml
+│   ├── iudex.config.js
+│   ├── verify-dashboard.js
+│   └── README.md
+├── dashboard-express/         # Express integration
 │   ├── package.json
 │   └── server.js
-├── fastify-dashboard/          # Fastify integration
-│   ├── package.json
-│   └── server.js
-├── standalone-dashboard/       # HTTP server
+├── dashboard-standalone/      # HTTP server
 │   ├── package.json
 │   └── server.js
 ├── httpbin-tests/             # HTTPBin tests
@@ -128,18 +139,23 @@ Dashboard examples demonstrate:
 - ✅ Filterable test results table
 - ✅ Governance violations panel
 - ✅ Security findings panel
+- ✅ Analytics tab (flaky tests, regressions, trends, endpoint rates) ⭐ NEW
 - ✅ Historical run comparison
 - ✅ Search and filter capabilities
 - ✅ Mobile-responsive design
+- ✅ Static deployment (GitHub Pages, Netlify, Vercel) ⭐ NEW
+- ✅ Automated CI/CD with GitHub Actions ⭐ NEW
 
 ## Test Data
 
 Dashboard examples read test results from:
+
 ```
 ../iudex/.iudex/results/
 ```
 
 Generate test data by running integration tests in the main repo:
+
 ```bash
 cd ../iudex
 npm run test:integration
@@ -165,9 +181,9 @@ To add a new example:
 
 ## Documentation
 
-- [Iudex Dashboard Server Guide](../iudex/docs/DASHBOARD_SERVER.md)
-- [Iudex API Documentation](../iudex/docs/DASHBOARD_API.md)
-- [Main Iudex README](../iudex/README.md)
+- [Iudex Dashboard Server Guide](https://github.com/jirevwe/iudex/docs/DASHBOARD_SERVER.md)
+- [Iudex API Documentation](https://github.com/jirevwe/iudex/docs/DASHBOARD_API.md)
+- [Main Iudex README](https://github.com/jirevwe/iudex/README.md)
 
 ## License
 
