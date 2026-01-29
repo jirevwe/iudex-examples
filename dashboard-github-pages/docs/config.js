@@ -3,5 +3,5 @@ window.DASHBOARD_CONFIG = {
   "title": "Iudex API Tests - GitHub Pages Example",
   "mode": "static",
   "apiEndpoint": null,
-  "generated": "2026-01-28T15:26:15.337Z"
+  "generated": "2026-01-29T14:01:33.904Z"
 };
