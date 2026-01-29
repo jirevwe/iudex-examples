@@ -1,0 +1,28 @@
+{
+  "name": "iudex-standard-library-demos",
+  "version": "1.0.0",
+  "description": "Comprehensive examples demonstrating Iudex standard library utilities",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node ../../iudex/cli/index.js run *.test.js",
+    "test:encoding": "node ../../iudex/cli/index.js run encoding.test.js",
+    "test:crypto": "node ../../iudex/cli/index.js run crypto.test.js",
+    "test:string": "node ../../iudex/cli/index.js run string.test.js",
+    "test:datetime": "node ../../iudex/cli/index.js run datetime.test.js",
+    "test:random": "node ../../iudex/cli/index.js run random.test.js",
+    "test:object": "node ../../iudex/cli/index.js run object-array.test.js",
+    "test:validators": "node ../../iudex/cli/index.js run validators.test.js",
+    "test:comprehensive": "node ../../iudex/cli/index.js run comprehensive.test.js"
+  },
+  "dependencies": {
+    "iudex": "file:../../iudex"
+  },
+  "keywords": [
+    "iudex",
+    "testing",
+    "api-testing",
+    "standard-library",
+    "examples"
+  ]
+}
