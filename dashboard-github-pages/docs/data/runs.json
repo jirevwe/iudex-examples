@@ -21,8 +21,30 @@
         "findingCount": 46,
         "criticalCount": 12
       }
+    },
+    {
+      "id": "run-2026-01-29T19-24-50",
+      "timestamp": "1970-01-01T00:00:00.000Z",
+      "summary": {
+        "total": 64,
+        "passed": 48,
+        "failed": 16,
+        "skipped": 0,
+        "duration": 5708,
+        "startTime": 1769714684412,
+        "endTime": 1769714690120
+      },
+      "gitInfo": null,
+      "governance": {
+        "violationCount": 0,
+        "warningCount": 15
+      },
+      "security": {
+        "findingCount": 46,
+        "criticalCount": 12
+      }
     }
   ],
   "latest": "run-2026-01-29T14-12-38",
-  "generated": "2026-01-29T14:12:38.865Z"
+  "generated": "2026-01-29T19:24:50.133Z"
 }
