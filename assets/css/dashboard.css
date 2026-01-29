@@ -181,6 +181,7 @@ body {
   line-height: var(--leading-relaxed);
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
+  direction: ltr;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -249,7 +250,6 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   font-size: var(--text-md);
-  cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s;
 }
 
@@ -267,8 +267,31 @@ body {
   border-color: var(--color-accent-primary);
 }
 
+/* Select-specific styling */
+.run-selector,
+.filter-select,
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M1 1.5L6 6.5L11 1.5" stroke="%23A2AAAD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  padding-right: var(--space-8);
+  cursor: pointer;
+}
+
+.run-selector option,
+.filter-select option,
+select option {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  padding: var(--space-2);
+}
+
 .search-input {
   min-width: 250px;
+  cursor: text;
 }
 
 /* ============================================================================
@@ -724,6 +747,8 @@ body {
   border-left: 4px solid var(--color-error-bright);
   margin: var(--space-2) var(--space-4) var(--space-4);
   border-radius: var(--radius-default);
+  direction: ltr;
+  text-align: left;
 }
 
 .error-message {
@@ -732,6 +757,8 @@ body {
   font-weight: var(--weight-semi);
   margin-bottom: var(--space-4);
   line-height: var(--leading-normal);
+  direction: ltr;
+  text-align: left;
 }
 
 .error-message strong {
@@ -741,6 +768,7 @@ body {
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
   font-size: var(--text-sm);
+  text-align: left;
 }
 
 .stack-trace-details {
@@ -775,6 +803,9 @@ body {
   overflow-x: auto;
   max-height: 400px;
   overflow-y: auto;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
 }
 
 /* ============================================================================

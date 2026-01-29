@@ -6,7 +6,7 @@
         {
           "name": "GET request with query parameters",
           "status": "failed",
-          "duration": 539,
+          "duration": 599,
           "error": {
             "message": "Cannot read properties of undefined (reading 'body')",
             "stack": "TypeError: Cannot read properties of undefined (reading 'body')\n    at Expect.toHaveProperty (file:///Users/rtukpe/Documents/dev/gotech/iudex/core/dsl.js:170:33)\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:20:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -21,7 +21,7 @@
         {
           "name": "POST request with JSON body",
           "status": "failed",
-          "duration": 771,
+          "duration": 127,
           "error": {
             "message": "Cannot read properties of undefined (reading 'body')",
             "stack": "TypeError: Cannot read properties of undefined (reading 'body')\n    at Expect.toHaveProperty (file:///Users/rtukpe/Documents/dev/gotech/iudex/core/dsl.js:170:33)\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:37:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -36,7 +36,7 @@
         {
           "name": "PUT request updates resource",
           "status": "failed",
-          "duration": 423,
+          "duration": 124,
           "error": {
             "message": "Cannot read properties of undefined (reading 'json')",
             "stack": "TypeError: Cannot read properties of undefined (reading 'json')\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:51:26)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -51,7 +51,7 @@
         {
           "name": "DELETE request",
           "status": "failed",
-          "duration": 116,
+          "duration": 885,
           "error": {
             "message": "Cannot read properties of undefined (reading 'body')",
             "stack": "TypeError: Cannot read properties of undefined (reading 'body')\n    at Expect.toHaveProperty (file:///Users/rtukpe/Documents/dev/gotech/iudex/core/dsl.js:170:33)\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:58:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -66,7 +66,7 @@
         {
           "name": "Request with custom headers",
           "status": "failed",
-          "duration": 142,
+          "duration": 443,
           "error": {
             "message": "Cannot read properties of undefined (reading 'headers')",
             "stack": "TypeError: Cannot read properties of undefined (reading 'headers')\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:70:26)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -81,7 +81,7 @@
         {
           "name": "Basic authentication",
           "status": "failed",
-          "duration": 1108,
+          "duration": 256,
           "error": {
             "message": "Cannot read properties of undefined (reading 'body')",
             "stack": "TypeError: Cannot read properties of undefined (reading 'body')\n    at Expect.toHaveProperty (file:///Users/rtukpe/Documents/dev/gotech/iudex/core/dsl.js:170:33)\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:82:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -96,7 +96,7 @@
         {
           "name": "Status code validation",
           "status": "passed",
-          "duration": 127,
+          "duration": 453,
           "error": null,
           "retries": 0,
           "tags": [],
@@ -105,12 +105,12 @@
           "method": null,
           "responseBody": "",
           "statusCode": 201,
-          "responseTime": 125
+          "responseTime": 447
         },
         {
           "name": "Response format - JSON",
           "status": "failed",
-          "duration": 118,
+          "duration": 430,
           "error": {
             "message": "expect(...).toBeObject is not a function",
             "stack": "TypeError: expect(...).toBeObject is not a function\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:96:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -125,7 +125,7 @@
         {
           "name": "Response delay handling",
           "status": "passed",
-          "duration": 1267,
+          "duration": 1184,
           "error": null,
           "retries": 0,
           "tags": [],
@@ -142,18 +142,18 @@
               "Accept-Encoding": "gzip, compress, deflate, br",
               "Host": "httpbin.org",
               "User-Agent": "Iudex/1.0 GitHub-Pages-Example",
-              "X-Amzn-Trace-Id": "Root=1-697a2a92-345f7b926f09f9991ab0a336"
+              "X-Amzn-Trace-Id": "Root=1-697b5359-7aaa72c555b50fc91c9bef4e"
             },
             "origin": "78.133.62.30",
             "url": "https://httpbin.org/delay/1"
           },
           "statusCode": 200,
-          "responseTime": 1264
+          "responseTime": 1179
         },
         {
           "name": "Error handling - 404",
           "status": "passed",
-          "duration": 116,
+          "duration": 491,
           "error": null,
           "retries": 0,
           "tags": [],
@@ -162,13 +162,13 @@
           "method": null,
           "responseBody": "",
           "statusCode": 404,
-          "responseTime": 115
+          "responseTime": 490
         }
       ],
       "passed": 3,
       "failed": 7,
       "skipped": 0,
-      "duration": 4728,
+      "duration": 4992,
       "error": null
     },
     {
@@ -177,7 +177,7 @@
         {
           "name": "UUID format validation",
           "status": "failed",
-          "duration": 284,
+          "duration": 940,
           "error": {
             "message": "Cannot read properties of undefined (reading 'body')",
             "stack": "TypeError: Cannot read properties of undefined (reading 'body')\n    at Expect.toHaveProperty (file:///Users/rtukpe/Documents/dev/gotech/iudex/core/dsl.js:170:33)\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:120:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -192,7 +192,7 @@
         {
           "name": "Response time measurement",
           "status": "failed",
-          "duration": 118,
+          "duration": 169,
           "error": {
             "message": "expect(...).toBeLessThan is not a function",
             "stack": "TypeError: expect(...).toBeLessThan is not a function\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:128:31)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -207,7 +207,7 @@
         {
           "name": "Content type validation",
           "status": "passed",
-          "duration": 377,
+          "duration": 1045,
           "error": null,
           "retries": 0,
           "tags": [],
@@ -216,13 +216,13 @@
           "method": null,
           "responseBody": "<!DOCTYPE html>\n<html>\n  <head>\n  </head>\n  <body>\n      <h1>Herman Melville - Moby-Dick</h1>\n\n      <div>\n        <p>\n          Availing himself of the mild, summer-cool weather that now reigned in these latitudes, and in preparation for the peculiarly active pursuits shortly to be anticipated, Perth, the begrimed, blistered old blacksmith, had not removed his portable forge to the hold again, after concluding his contributory work for Ahab's leg, but still retained it on deck, fast lashed to ringbolts by the foremast; being now almost incessantly invoked by the headsmen, and harpooneers, and bowsmen to do some little job for them; altering, or repairing, or new shaping their various weapons and boat furniture. Often he would be surrounded by an eager circle, all waiting to be served; holding boat-spades, pike-heads, harpoons, and lances, and jealously watching his every sooty movement, as he toiled. Nevertheless, this old man's was a patient hammer wielded by a patient arm. No murmur, no impatience, no petulance did come from him. Silent, slow, and solemn; bowing over still further his chronically broken back, he toiled away, as if toil were life itself, and the heavy beating of his hammer the heavy beating of his heart. And so it was.—Most miserable! A peculiar walk in this old man, a certain slight but painful appearing yawing in his gait, had at an early period of the voyage excited the curiosity of the mariners. And to the importunity of their persisted questionings he had finally given in; and so it came to pass that every one now knew the shameful story of his wretched fate. Belated, and not innocently, one bitter winter's midnight, on the road running between two country towns, the blacksmith half-stupidly felt the deadly numbness stealing over him, and sought refuge in a leaning, dilapidated barn. The issue was, the loss of the extremities of both feet. Out of this revelation, part by part, at last came out the four acts of the gladness, and the one long, and as yet uncatastrophied fifth act of the grief of his life's drama. He was an old man, who, at the age of nearly sixty, had postponedly encountered that thing in sorrow's technicals called ruin. He had been an artisan of famed excellence, and with plenty to do; owned a house and garden; embraced a youthful, daughter-like, loving wife, and three blithe, ruddy children; every Sunday went to a cheerful-looking church, planted in a grove. But one night, under cover of darkness, and further concealed in a most cunning disguisement, a desperate burglar slid into his happy home, and robbed them all of everything. And darker yet to tell, the blacksmith himself did ignorantly conduct this burglar into his family's heart. It was the Bottle Conjuror! Upon the opening of that fatal cork, forth flew the fiend, and shrivelled up his home. Now, for prudent, most wise, and economic reasons, the blacksmith's shop was in the basement of his dwelling, but with a separate entrance to it; so that always had the young and loving healthy wife listened with no unhappy nervousness, but with vigorous pleasure, to the stout ringing of her young-armed old husband's hammer; whose reverberations, muffled by passing through the floors and walls, came up to her, not unsweetly, in her nursery; and so, to stout Labor's iron lullaby, the blacksmith's infants were rocked to slumber. Oh, woe on woe! Oh, Death, why canst thou not sometimes be timely? Hadst thou taken this old blacksmith to thyself ere his full ruin came upon him, then had the young widow had a delicious grief, and her orphans a truly venerable, legendary sire to dream of in their after years; and all of them a care-killing competency.\n        </p>\n      </div>\n  </body>\n</html>",
           "statusCode": 200,
-          "responseTime": 377
+          "responseTime": 1043
         }
       ],
       "passed": 1,
       "failed": 2,
       "skipped": 0,
-      "duration": 779,
+      "duration": 2154,
       "error": null
     },
     {
@@ -231,7 +231,7 @@
         {
           "name": "Large response handling",
           "status": "failed",
-          "duration": 380,
+          "duration": 125,
           "error": {
             "message": "Expected value to be defined",
             "stack": "Error: Expected value to be defined\n    at Expect.toBeDefined (file:///Users/rtukpe/Documents/dev/gotech/iudex/core/dsl.js:205:45)\n    at test.id (file:///Users/rtukpe/Documents/dev/gotech/iudex-examples/dashboard-github-pages/tests/api.test.js:144:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
@@ -246,7 +246,7 @@
         {
           "name": "Redirect following",
           "status": "passed",
-          "duration": 1287,
+          "duration": 988,
           "error": null,
           "retries": 0,
           "tags": [],
@@ -260,18 +260,18 @@
               "Accept-Encoding": "gzip, compress, deflate, br",
               "Host": "httpbin.org",
               "User-Agent": "Iudex/1.0 GitHub-Pages-Example",
-              "X-Amzn-Trace-Id": "Root=1-697a2a95-4e038ad02f3a38b8463b87ce"
+              "X-Amzn-Trace-Id": "Root=1-697b535e-252ea92b4cd664dc411aa037"
             },
             "origin": "78.133.62.30",
             "url": "https://httpbin.org/get"
           },
           "statusCode": 200,
-          "responseTime": 1286
+          "responseTime": 987
         },
         {
           "name": "HTTP method reflection",
           "status": "passed",
-          "duration": 806,
+          "duration": 1183,
           "error": null,
           "retries": 0,
           "tags": [],
@@ -291,20 +291,20 @@
               "Content-Type": "application/json",
               "Host": "httpbin.org",
               "User-Agent": "Iudex/1.0 GitHub-Pages-Example",
-              "X-Amzn-Trace-Id": "Root=1-697a2a97-6db29f865aa54bde5212b713"
+              "X-Amzn-Trace-Id": "Root=1-697b535e-1ded28950c415cc0046a86ff"
             },
             "json": {},
             "origin": "78.133.62.30",
             "url": "https://httpbin.org/patch"
           },
           "statusCode": 200,
-          "responseTime": 121
+          "responseTime": 492
         }
       ],
       "passed": 2,
       "failed": 1,
       "skipped": 0,
-      "duration": 2473,
+      "duration": 2297,
       "error": null
     }
   ],
@@ -313,9 +313,9 @@
     "passed": 6,
     "failed": 10,
     "skipped": 0,
-    "duration": 7980,
-    "startTime": 1769613967343,
-    "endTime": 1769613975323
+    "duration": 9443,
+    "startTime": 1769689941813,
+    "endTime": 1769689951256
   },
   "governance": {
     "violations": [],

@@ -1,6 +1,28 @@
 {
   "runs": [
     {
+      "id": "run-2026-01-27T17-29-08",
+      "timestamp": "1970-01-01T00:00:00.000Z",
+      "summary": {
+        "total": 28,
+        "passed": 18,
+        "failed": 10,
+        "skipped": 0,
+        "duration": 4736,
+        "startTime": 1769534943292,
+        "endTime": 1769534948028
+      },
+      "gitInfo": null,
+      "governance": {
+        "violationCount": 0,
+        "warningCount": 0
+      },
+      "security": {
+        "findingCount": 0,
+        "criticalCount": 0
+      }
+    },
+    {
       "id": "run-2026-01-28T14-56-10",
       "timestamp": "1970-01-01T00:00:00.000Z",
       "summary": {
@@ -23,82 +45,16 @@
       }
     },
     {
-      "id": "run-2026-01-28T14-57-32",
+      "id": "run-2026-01-29T12-32-31",
       "timestamp": "1970-01-01T00:00:00.000Z",
       "summary": {
         "total": 16,
         "passed": 6,
         "failed": 10,
         "skipped": 0,
-        "duration": 8732,
-        "startTime": 1769612243433,
-        "endTime": 1769612252165
-      },
-      "gitInfo": null,
-      "governance": {
-        "violationCount": 0,
-        "warningCount": 15
-      },
-      "security": {
-        "findingCount": 46,
-        "criticalCount": 12
-      }
-    },
-    {
-      "id": "run-2026-01-28T15-05-29",
-      "timestamp": "1970-01-01T00:00:00.000Z",
-      "summary": {
-        "total": 16,
-        "passed": 6,
-        "failed": 10,
-        "skipped": 0,
-        "duration": 10829,
-        "startTime": 1769612718540,
-        "endTime": 1769612729369
-      },
-      "gitInfo": null,
-      "governance": {
-        "violationCount": 0,
-        "warningCount": 15
-      },
-      "security": {
-        "findingCount": 46,
-        "criticalCount": 12
-      }
-    },
-    {
-      "id": "run-2026-01-28T15-17-02",
-      "timestamp": "1970-01-01T00:00:00.000Z",
-      "summary": {
-        "total": 16,
-        "passed": 6,
-        "failed": 10,
-        "skipped": 0,
-        "duration": 8662,
-        "startTime": 1769613413497,
-        "endTime": 1769613422159
-      },
-      "gitInfo": null,
-      "governance": {
-        "violationCount": 0,
-        "warningCount": 15
-      },
-      "security": {
-        "findingCount": 46,
-        "criticalCount": 12
-      }
-    },
-    {
-      "id": "run-2026-01-28T15-26-15",
-      "timestamp": "1970-01-01T00:00:00.000Z",
-      "summary": {
-        "total": 16,
-        "passed": 6,
-        "failed": 10,
-        "skipped": 0,
-        "duration": 7980,
-        "startTime": 1769613967343,
-        "endTime": 1769613975323
+        "duration": 9443,
+        "startTime": 1769689941813,
+        "endTime": 1769689951256
       },
       "gitInfo": null,
       "governance": {
@@ -111,6 +67,6 @@
       }
     }
   ],
-  "latest": "run-2026-01-28T14-56-10",
-  "generated": "2026-01-28T15:26:15.337Z"
+  "latest": "run-2026-01-27T17-29-08",
+  "generated": "2026-01-29T12:32:31.277Z"
 }
