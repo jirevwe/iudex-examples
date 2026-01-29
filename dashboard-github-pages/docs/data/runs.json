@@ -1,82 +1,16 @@
 {
   "runs": [
     {
-      "id": "run-2026-01-27T17-29-08",
-      "timestamp": "1970-01-01T00:00:00.000Z",
-      "summary": {
-        "total": 28,
-        "passed": 18,
-        "failed": 10,
-        "skipped": 0,
-        "duration": 4736,
-        "startTime": 1769534943292,
-        "endTime": 1769534948028
-      },
-      "gitInfo": null,
-      "governance": {
-        "violationCount": 0,
-        "warningCount": 0
-      },
-      "security": {
-        "findingCount": 0,
-        "criticalCount": 0
-      }
-    },
-    {
-      "id": "run-2026-01-28T14-56-10",
+      "id": "run-2026-01-29T14-12-38",
       "timestamp": "1970-01-01T00:00:00.000Z",
       "summary": {
         "total": 16,
         "passed": 6,
         "failed": 10,
         "skipped": 0,
-        "duration": 6388,
-        "startTime": 1769612164118,
-        "endTime": 1769612170506
-      },
-      "gitInfo": null,
-      "governance": {
-        "violationCount": 0,
-        "warningCount": 15
-      },
-      "security": {
-        "findingCount": 46,
-        "criticalCount": 12
-      }
-    },
-    {
-      "id": "run-2026-01-29T12-32-31",
-      "timestamp": "1970-01-01T00:00:00.000Z",
-      "summary": {
-        "total": 16,
-        "passed": 6,
-        "failed": 10,
-        "skipped": 0,
-        "duration": 9443,
-        "startTime": 1769689941813,
-        "endTime": 1769689951256
-      },
-      "gitInfo": null,
-      "governance": {
-        "violationCount": 0,
-        "warningCount": 15
-      },
-      "security": {
-        "findingCount": 46,
-        "criticalCount": 12
-      }
-    },
-    {
-      "id": "run-2026-01-29T14-01-33",
-      "timestamp": "1970-01-01T00:00:00.000Z",
-      "summary": {
-        "total": 16,
-        "passed": 6,
-        "failed": 10,
-        "skipped": 0,
-        "duration": 10078,
-        "startTime": 1769695283802,
-        "endTime": 1769695293880
+        "duration": 8786,
+        "startTime": 1769695950055,
+        "endTime": 1769695958841
       },
       "gitInfo": null,
       "governance": {
@@ -89,6 +23,6 @@
       }
     }
   ],
-  "latest": "run-2026-01-27T17-29-08",
-  "generated": "2026-01-29T14:01:33.904Z"
+  "latest": "run-2026-01-29T14-12-38",
+  "generated": "2026-01-29T14:12:38.865Z"
 }
