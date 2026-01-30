@@ -130,9 +130,7 @@ describe('HTTPBin API E"xamples', {prefix: 'saas.api'}, () => {
     });
 });
 
-describe('HTTPBin Response Format Tests', {
-    prefix: 'httpbin.formats'
-}, () => {
+describe('HTTPBin Response Format Tests', {prefix: 'httpbin.formats'}, () => {
     const baseUrl = 'https://seal-app-7wdhb.ondigitalocean.app';
 
     test('should get HTML response', async (context) => {
@@ -171,9 +169,7 @@ describe('HTTPBin Response Format Tests', {
     });
 });
 
-describe('HTTPBin Error Handling', {
-    prefix: 'httpbin.errors'
-}, () => {
+describe('HTTPBin Error Handling', {prefix: 'httpbin.errors'}, () => {
     const baseUrl = 'https://seal-app-7wdhb.ondigitalocean.app';
 
     test('should handle 404 errors', async (context) => {
@@ -203,9 +199,7 @@ describe('HTTPBin Error Handling', {
     });
 });
 
-describe('Rating Widget UI Tests', {
-    prefix: 'widget.ui'
-}, () => {
+describe('Rating Widget UI Tests', {prefix: 'widget.ui'}, () => {
     const widgetPath = new URL('./rating-widget/index.html', import.meta.url).pathname;
 
     async function setupBrowser() {

@@ -1,16 +1,24 @@
 {
-  "name": "iudex-express-dashboard-example",
+  "name": "iudex-postgres-dashboard-example",
   "version": "1.0.0",
   "type": "module",
-  "description": "Express server with Iudex dashboard integration",
+  "description": "Comprehensive Postgres reporter showcase with analytics",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "sh ./start-server.sh",
+    "dev": "sh ./start-server.sh",
+    "test": "sh ./run-tests.sh",
+    "test:verbose": "./run-tests.sh --verbose",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f dashboard",
+    "docker:reset": "docker compose down -v && docker compose up -d",
+    "db:health": "curl http://localhost:3000/test-dashboard/api/db-health"
   },
   "dependencies": {
     "iudex": "file:../../iudex",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pg": "^8.11.0"
   },
   "engines": {
     "node": ">=18.0.0"

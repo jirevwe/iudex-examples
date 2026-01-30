@@ -1,0 +1,207 @@
+import { describe, test, expect, beforeEach } from 'iudex';
+
+/**
+ * HTTPBin API Tests - Postgres Reporter Showcase
+ *
+ * This test suite demonstrates ALL Postgres reporter features:
+ * - Test evolution tracking via explicit IDs
+ * - Deletion detection (comment out tests to see them marked as deleted)
+ * - Git metadata capture (branch, commit, etc.)
+ * - Analytics features (flaky tests, regressions, health scores)
+ */
+
+describe('HTTPBin API Tests', { prefix: 'httpbin.api' }, () => {
+  let baseUrl;
+
+  beforeEach(async (context) => {
+    baseUrl = 'https://seal-app-7wdhb.ondigitalocean.app';
+    context.testData = { timestamp: Date.now() };
+  });
+
+  // test('should fetch GET endpoint with query parameters successfully', async (context) => {
+  //   const response = await context.request.get(`${baseUrl}/get`, {
+  //     params: { foo: 'bar', test: 'example' }
+  //   });
+  //
+  //   expect(response.status).toBe(200);
+  //   expect(response.data.args.foo[0]).toBe('bar');
+  //   expect(response.data.args.test[0]).toBe('example');
+  // }, { id: 'get_with_params' });  // Explicit ID stays the same - tracks evolution
+
+  test('should post JSON data', async (context) => {
+    const payload = {
+      name: 'Iudex',
+      type: 'testing-framework',
+      timestamp: context.testData.timestamp
+    };
+
+    const response = await context.request.post(`${baseUrl}/post`, payload);
+
+    expect(response.status).toBe(200);
+    expect(response.data.json.name).toBe('Iudex');
+    expect(response.data.json.type).toBe('testing-framework');
+  }, { id: 'post_json' });
+
+  test('should handle custom headers', async (context) => {
+    const response = await context.request.get(`${baseUrl}/headers`, {
+      headers: {
+        'X-Custom-Header': 'test-value',
+        'X-API-Key': 'secret-key-123'
+      }
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.data.headers['X-Custom-Header'][0]).toBe('test-value');
+  }, { id: 'custom_headers' });
+
+  test('should handle PUT requests', async (context) => {
+    const updatedData = {
+      id: 123,
+      updated: true,
+      timestamp: context.testData.timestamp
+    };
+
+    const response = await context.request.put(`${baseUrl}/put`, updatedData);
+
+    expect(response.status).toBe(200);
+    expect(response.data.json.id).toBe(123);
+    expect(response.data.json.updated).toBe(true);
+  }, { id: 'put_request' });
+
+  test('should handle DELETE requests', async (context) => {
+    const response = await context.request.delete(`${baseUrl}/delete`, {
+      data: { id: 456, reason: 'test cleanup' }
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.data.json.id).toBe(456);
+  }, { id: 'delete_request' });
+
+  test('should verify response status codes', async (context) => {
+    const response = await context.request.get(`${baseUrl}/status/201`);
+    expect(response.status).toBe(201);
+  }, { id: 'status_codes' });
+
+  test('should handle response delay', async (context) => {
+    const startTime = Date.now();
+    const response = await context.request.get(`${baseUrl}/delay/1`);
+    const duration = Date.now() - startTime;
+
+    expect(response.status).toBe(200);
+    expect(duration).toBeGreaterThanOrEqual(1000);
+  }, { id: 'response_delay' });
+
+  test('should verify response content type', async (context) => {
+    const response = await context.request.get(`${baseUrl}/json`);
+
+    expect(response.status).toBe(200);
+    expect(response.headers['content-type']).toContain('application/json');
+    expect(response.data.slideshow).toBeDefined();
+  }, { id: 'content_type' });
+
+  test('should handle basic authentication', async (context) => {
+    const response = await context.request.get(`${baseUrl}/basic-auth/user/passwd`, {
+      auth: {
+        username: 'user',
+        password: 'passwd'
+      }
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.data.authorized).toBe(true);
+    expect(response.data.user).toBe('user');
+  }, { id: 'basic_auth' });
+
+  test('should handle query parameters', async (context) => {
+    const params = {
+      search: 'api testing',
+      limit: 10,
+      offset: 0,
+      sort: 'asc'
+    };
+
+    const response = await context.request.get(`${baseUrl}/get`, { params });
+
+    expect(response.status).toBe(200);
+    expect(response.data.args.search[0]).toBe('api testing');
+    expect(response.data.args.limit[0]).toBe('10');
+  }, { id: 'query_params' });
+
+  // This test demonstrates deletion detection
+  // Comment it out and run tests again to see it marked as deleted in analytics
+  test('should handle deprecated auth endpoint [DEMO: Delete Me]', async (context) => {
+    const response = await context.request.get(`${baseUrl}/basic-auth/user/passwd`, {
+      auth: { username: 'user', password: 'passwd' }
+    });
+    expect(response.status).toBe(200);
+  }, { id: 'deprecated_basic_auth' });
+});
+
+describe('HTTPBin Response Format Tests', { prefix: 'httpbin.formats' }, () => {
+  const baseUrl = 'https://seal-app-7wdhb.ondigitalocean.app';
+
+  test('should get HTML response', async (context) => {
+    const response = await context.request.get(`${baseUrl}/html`);
+
+    expect(response.status).toBe(200);
+    expect(response.headers['content-type']).toContain('text/html');
+    expect(response.data).toContain('<!DOCTYPE html>');
+  }, { id: 'html_response' });
+
+  test('should get XML response', async (context) => {
+    const response = await context.request.get(`${baseUrl}/xml`);
+
+    expect(response.status).toBe(200);
+    expect(response.headers['content-type']).toContain('application/xml');
+  }, { id: 'xml_response' });
+
+  test('should verify UUID format', async (context) => {
+    const response = await context.request.get(`${baseUrl}/uuid`);
+
+    expect(response.status).toBe(200);
+    expect(response.data.uuid).toBeDefined();
+    // UUID v4 format: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
+    expect(response.data.uuid).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+  }, { id: 'uuid_format' });
+
+  test('should get user agent info', async (context) => {
+    const response = await context.request.get(`${baseUrl}/user-agent`, {
+      headers: {
+        'User-Agent': 'Iudex/1.0'
+      }
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.data['user-agent']).toBe('Iudex/1.0');
+  }, { id: 'user_agent' });
+});
+
+describe('HTTPBin Error Handling', { prefix: 'httpbin.errors' }, () => {
+  const baseUrl = 'https://seal-app-7wdhb.ondigitalocean.app';
+
+  test('should handle 404 errors', async (context) => {
+    try {
+      await context.request.get(`${baseUrl}/status/404`);
+    } catch (error) {
+      expect(error.response.status).toBe(404);
+    }
+  }, { id: 'error_404' });
+
+  test('should handle 500 errors', async (context) => {
+    try {
+      await context.request.get(`${baseUrl}/status/500`);
+    } catch (error) {
+      expect(error.response.status).toBe(500);
+    }
+  }, { id: 'error_500' });
+
+  test('should handle redirect', async (context) => {
+    const response = await context.request.get(`${baseUrl}/redirect-to`, {
+      params: { url: `${baseUrl}/get`, status_code: 302 },
+      maxRedirects: 5
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.data.url).toContain('/get');
+  }, { id: 'redirect_handling' });
+});

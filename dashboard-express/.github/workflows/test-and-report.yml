@@ -1,0 +1,109 @@
+name: Run Tests with Postgres Reporting
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours for trend data
+
+jobs:
+  test-and-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Full history for git metadata
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: iudex-examples/dashboard-express/package-lock.json
+
+      - name: Install Iudex dependencies
+        run: |
+          cd iudex
+          npm install
+
+      - name: Install example dependencies
+        run: |
+          cd iudex-examples/dashboard-express
+          npm install
+
+      - name: Run tests with Postgres reporter
+        env:
+          # Remote Postgres configuration from secrets
+          DB_HOST: ${{ secrets.POSTGRES_HOST }}
+          DB_PORT: ${{ secrets.POSTGRES_PORT }}
+          DB_NAME: ${{ secrets.POSTGRES_DATABASE }}
+          DB_USER: ${{ secrets.POSTGRES_USER }}
+          DB_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          DB_SSL: 'true'
+          POSTGRES_ENABLED: 'true'
+          CI: 'true'
+        run: |
+          cd iudex-examples/dashboard-express
+          npm test
+
+      - name: Upload test results artifact (fallback)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ github.run_number }}
+          path: iudex-examples/dashboard-express/.iudex/results/
+          retention-days: 30
+
+      - name: Comment PR with test results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const resultsDir = 'iudex-examples/dashboard-express/.iudex/results/';
+            const files = fs.readdirSync(resultsDir).filter(f => f.startsWith('run-'));
+
+            if (files.length === 0) {
+              console.log('No test results found');
+              return;
+            }
+
+            const latestFile = files.sort().reverse()[0];
+            const results = JSON.parse(fs.readFileSync(path.join(resultsDir, latestFile), 'utf-8'));
+
+            const passRate = results.summary.total > 0
+              ? ((results.summary.passed / results.summary.total) * 100).toFixed(1)
+              : 0;
+
+            const emoji = results.summary.failed === 0 ? '✅' : '❌';
+
+            const comment = `
+            ## ${emoji} Test Results - Run #${context.runNumber}
+
+            | Metric | Value |
+            |--------|-------|
+            | Total Tests | ${results.summary.total} |
+            | Passed | ${results.summary.passed} ✅ |
+            | Failed | ${results.summary.failed} ❌ |
+            | Skipped | ${results.summary.skipped} ⊘ |
+            | Duration | ${(results.summary.duration / 1000).toFixed(2)}s |
+            | Pass Rate | ${passRate}% |
+
+            **Branch:** \`${results.metadata.gitInfo?.branch || 'unknown'}\`
+            **Commit:** \`${results.metadata.gitInfo?.commit?.slice(0, 7) || 'unknown'}\`
+
+            📊 [View Full Dashboard](https://your-dashboard-url.com/test-dashboard)
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: iudex-postgres
+    ports:
+      - "${POSTGRES_HOST_PORT}:5432"
+    environment:
+      POSTGRES_USER: iudex
+      POSTGRES_PASSWORD: iudex_dev_password
+      POSTGRES_DB: iudex_tests
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../../iudex/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iudex"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - iudex-network
+
+  dashboard:
+    image: node:24-alpine
+    container_name: iudex-dashboard
+    working_dir: /workspace/iudex-examples/dashboard-express
+    ports:
+      - "${DASHBOARD_PORT}:3000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: iudex_tests
+      DB_USER: iudex
+      DB_PASSWORD: iudex_dev_password
+      DB_SSL: "false"
+      NODE_ENV: development
+      PORT: 3000
+    volumes:
+      # Mount parent directory to access both iudex and dashboard-express
+      - ../../:/workspace
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: sh -c "npm install && npm run dev"
+    networks:
+      - iudex-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  iudex-network:
+    driver: bridge

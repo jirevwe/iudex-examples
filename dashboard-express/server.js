@@ -1,16 +1,22 @@
 #!/usr/bin/env node
 
 /**
- * Example: Express Server with Iudex Dashboard
+ * Iudex Postgres Dashboard Example
  *
- * This example demonstrates how to mount the Iudex dashboard
- * on an Express server alongside your API routes.
+ * Comprehensive showcase of Postgres reporter features:
+ * - Test evolution tracking
+ * - Deletion detection
+ * - Git metadata capture
+ * - Analytics endpoints
+ * - Docker development environment
  */
 
 import express from 'express';
-import { createExpressDashboard } from 'iudex/server/express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { createExpressDashboard } from 'iudex/server/express';
+import { DatabaseClient } from 'iudex/database/client';
+import { TestRepository } from 'iudex/database/repository';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,121 +24,123 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.json());
 
-// Sample API routes
-app.get('/api/status', (req, res) => {
-  res.json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime()
-  });
-});
+// Initialize database connection for analytics
+const dbConfig = {
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT || '5433'),
+  database: process.env.DB_NAME || 'iudex_tests',
+  user: process.env.DB_USER || 'iudex',
+  password: process.env.DB_PASSWORD,
+  ssl: process.env.DB_SSL === 'true'
+};
 
-app.get('/api/users', (req, res) => {
-  res.json({
-    users: [
-      { id: 1, name: 'Alice', email: 'alice@example.com' },
-      { id: 2, name: 'Bob', email: 'bob@example.com' }
-    ]
-  });
-});
+let dbClient;
+let repository;
 
-// Mount Iudex Dashboard at /test-dashboard
-// Point to iudex's test results directory
-const iudexResultsDir = path.join(__dirname, '.iudex', 'results');
+async function initializeDatabase() {
+  try {
+    dbClient = new DatabaseClient(dbConfig);
+    await dbClient.connect();
+    repository = new TestRepository(dbClient);
+    console.log('✅ Connected to PostgreSQL');
+  } catch (error) {
+    console.error('❌ Failed to connect to PostgreSQL:', error.message);
+    console.log('⚠️  Dashboard will run without analytics features');
+    process.exit(1);
+  }
+}
 
-app.use('/test-dashboard', createExpressDashboard({
-  resultsDir: iudexResultsDir,
-  title: 'Iudex API Test Dashboard',
-  theme: 'light'
-}));
+await initializeDatabase();
 
-// Root route
+// Home page
 app.get('/', (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>
     <head>
-      <title>Iudex Dashboard Example</title>
+      <title>Iudex Postgres Dashboard Example</title>
       <style>
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          max-width: 800px;
-          margin: 50px auto;
-          padding: 20px;
-          line-height: 1.6;
-        }
-        h1 { color: #3b82f6; }
-        .card {
-          background: #f9fafb;
-          border: 1px solid #e5e7eb;
-          border-radius: 8px;
-          padding: 20px;
-          margin: 20px 0;
-        }
-        .card h2 { margin-top: 0; }
-        a {
-          color: #3b82f6;
-          text-decoration: none;
-          font-weight: 500;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        h1 { color: #333; }
+        .feature { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        a { color: #0066cc; text-decoration: none; }
         a:hover { text-decoration: underline; }
-        code {
-          background: #e5e7eb;
-          padding: 2px 6px;
-          border-radius: 4px;
-          font-size: 0.9em;
-        }
-        ul { padding-left: 20px; }
+        .status { padding: 5px 10px; border-radius: 3px; font-size: 14px; }
+        .status.connected { background: #d4edda; color: #155724; }
+        .status.disconnected { background: #f8d7da; color: #721c24; }
       </style>
     </head>
     <body>
-      <h1>🛡️ Iudex Dashboard Example</h1>
+      <h1>🛡️ Iudex Postgres Dashboard Example</h1>
 
-      <div class="card">
-        <h2>Available Endpoints</h2>
-        <ul>
-          <li><a href="/test-dashboard">📊 Test Dashboard</a> - View test results, governance violations, and security findings</li>
-          <li><a href="/api/status">🔍 API Status</a> - Check API health</li>
-          <li><a href="/api/users">👥 Users API</a> - Sample API endpoint</li>
-        </ul>
+      <p>Database Status: <span class="status ${repository ? 'connected' : 'disconnected'}">
+        ${repository ? '✅ Connected' : '❌ Disconnected'}
+      </span></p>
+
+      <h2>🎯 Quick Links</h2>
+      <div class="feature">
+        <strong>📊 Test Dashboard:</strong> <a href="/test-dashboard">/test-dashboard</a>
+        <p>View test results with Postgres-powered analytics</p>
       </div>
 
-      <div class="card">
-        <h2>Dashboard Features</h2>
-        <ul>
-          <li>✅ Real-time test results with pass/fail status</li>
-          <li>⚠️ Governance violations panel</li>
-          <li>🔒 Security findings overview</li>
-          <li>📈 Historical run comparison</li>
-          <li>🔍 Search and filter capabilities</li>
-          <li>📱 Mobile-responsive design</li>
-        </ul>
+      ${repository ? `
+      <h2>🔧 Analytics API Endpoints (Auto-mounted)</h2>
+      <div class="feature">
+        <strong>Flaky Tests:</strong> <a href="/test-dashboard/api/analytics/flaky-tests">/test-dashboard/api/analytics/flaky-tests</a>
       </div>
+      <div class="feature">
+        <strong>Regressions:</strong> <a href="/test-dashboard/api/analytics/regressions">/test-dashboard/api/analytics/regressions</a>
+      </div>
+      <div class="feature">
+        <strong>Health Scores:</strong> <a href="/test-dashboard/api/analytics/health-scores">/test-dashboard/api/analytics/health-scores</a>
+      </div>
+      <div class="feature">
+        <strong>Deleted Tests:</strong> <a href="/test-dashboard/api/analytics/deleted-tests">/test-dashboard/api/analytics/deleted-tests</a>
+      </div>
+      <div class="feature">
+        <strong>Daily Stats:</strong> <a href="/test-dashboard/api/analytics/daily-stats">/test-dashboard/api/analytics/daily-stats</a>
+      </div>
+      <div class="feature">
+        <strong>Database Health:</strong> <a href="/test-dashboard/api/db-health">/test-dashboard/api/db-health</a>
+      </div>
+      ` : '<p><em>Analytics endpoints require Postgres connection</em></p>'}
 
-      <div class="card">
-        <h2>Try the Dashboard</h2>
-        <p>
-          Visit <a href="/test-dashboard">/test-dashboard</a> to see your test results.
-        </p>
-        <p style="color: #6b7280; font-size: 0.9em;">
-          Note: The dashboard displays results from <code>.iudex/results/</code> directory.
-          Run your tests first if you don't see any data.
-        </p>
-      </div>
+      <h2>🚀 Getting Started</h2>
+      <ol>
+        <li>Run tests: <code>npm test</code></li>
+        <li>Visit <a href="/test-dashboard">Test Dashboard</a></li>
+        <li>Check analytics endpoints above</li>
+        <li>Explore features in README.md</li>
+      </ol>
     </body>
     </html>
   `);
 });
 
-// Start server
+// Mount dashboard with Postgres analytics
+// When repository is provided, the handler automatically mounts all analytics endpoints
+app.use('/test-dashboard', createExpressDashboard({
+  resultsDir: path.join(__dirname, '.iudex', 'results'),
+  title: 'HTTPBin API Tests - Postgres Analytics',
+  theme: 'light',
+  repository // Analytics endpoints auto-mounted when repository provided
+}));
+
 app.listen(PORT, () => {
-  console.log('\n🚀 Express Server with Iudex Dashboard');
-  console.log('─'.repeat(50));
-  console.log(`Server running at:     http://localhost:${PORT}`);
-  console.log(`Dashboard available at: http://localhost:${PORT}/test-dashboard`);
-  console.log('─'.repeat(50));
-  console.log('\nPress Ctrl+C to stop\n');
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`📊 Dashboard: http://localhost:${PORT}/test-dashboard`);
+  if (repository) {
+    console.log(`📈 Analytics: http://localhost:${PORT}/test-dashboard/api/analytics/*`);
+  }
+});
+
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+  console.log('⏹️  Shutting down gracefully...');
+  if (dbClient) {
+    await dbClient.close();
+  }
+  process.exit(0);
 });

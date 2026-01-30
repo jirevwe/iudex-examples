@@ -1,0 +1,12 @@
+node_modules
+.git
+.env
+.iudex
+npm-debug.log
+.DS_Store
+*.log
+.idea
+.vscode
+coverage
+dist
+build
