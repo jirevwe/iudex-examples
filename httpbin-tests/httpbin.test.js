@@ -1,4 +1,4 @@
-import {describe, test, expect, beforeEach, afterEach} from 'iudex';
+import {describe, test, expect, beforeEach} from 'iudex';
 
 describe('Removal Tests', {prefix: 'saas.ui'}, () => {
     test('should display welcome message', async (context) => {
