@@ -25,13 +25,6 @@ export default {
         // Pool
         poolSize: 10
       }
-    },
-    {
-      reporter: 'json',
-      config: {
-        outputDir: '.iudex/results',
-        pretty: true
-      }
     }
   ]
 };
