@@ -8,12 +8,13 @@ This example showcases **ALL** Postgres reporter features:
 
 1. **Test Evolution Tracking** - Rename tests, maintain history via test slugs
 2. **Deletion Detection** - Automatically mark deleted tests
-3. **Git Metadata** - Capture branch, commit, author information
-4. **Analytics Features** - Flaky tests, regressions, health scores, daily trends
-5. **Dual-Mode Operation** - Single-transaction (small) vs batched (large reports)
-6. **Docker Development** - One-command local setup
-7. **CI/CD Integration** - GitHub Actions with remote Postgres
-8. **Team Collaboration** - Shared database for multiple developers
+3. **Test Stubs** - Plan test coverage with unimplemented test placeholders
+4. **Git Metadata** - Capture branch, commit, author information
+5. **Analytics Features** - Flaky tests, regressions, health scores, daily trends
+6. **Dual-Mode Operation** - Single-transaction (small) vs batched (large reports)
+7. **Docker Development** - One-command local setup
+8. **CI/CD Integration** - GitHub Actions with remote Postgres
+9. **Team Collaboration** - Shared database for multiple developers
 
 ## 🚀 Quick Start
 
@@ -142,7 +143,33 @@ You'll see the deleted test with `deleted_at` timestamp and lifecycle informatio
 
 **Resurrection:** Uncomment the test and run again - it's automatically restored!
 
-### 3. Git Metadata Capture
+### 3. Test Stubs (Unimplemented Tests)
+
+**What it does:** Mark tests as unimplemented to plan coverage and track progress.
+
+**Try it:**
+```bash
+# Run the stub examples
+npm test -- tests/user-api-stubs.test.js
+npm test -- tests/payment-api-stubs.test.js
+npm test -- tests/feature-planning-example.test.js
+```
+
+**Dashboard view:**
+- Summary card shows unimplemented count
+- Filter dropdown has "Unimplemented Only" option
+- Gray square icon (◻) marks stubbed tests
+- Track progress as stubs become real tests
+
+**Use cases:**
+- 📋 Plan test coverage before implementation
+- 🎯 Track what needs to be tested
+- 🚀 Measure implementation progress
+- 📊 Visualize testing backlog
+
+See [tests/TEST_STUBS_README.md](tests/TEST_STUBS_README.md) for detailed examples and patterns.
+
+### 4. Git Metadata Capture
 
 **What it does:** Automatically captures git branch, commit SHA, and commit message.
 
@@ -161,7 +188,7 @@ Shows:
 }
 ```
 
-### 4. Analytics Features
+### 5. Analytics Features
 
 #### Flaky Tests
 Tests that pass sometimes, fail sometimes (10-90% failure rate).
@@ -191,7 +218,7 @@ Aggregated daily statistics for trend analysis.
 curl http://localhost:3000/test-dashboard/api/analytics/daily-stats?days=7 | jq
 ```
 
-### 5. Dual-Mode Operation
+### 6. Dual-Mode Operation
 
 **Small reports (<100 tests):** Single transaction (atomic, fast)
 **Large reports (100+ tests):** Batched (100 per batch, scalable)
