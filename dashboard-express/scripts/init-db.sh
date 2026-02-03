@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+printenv | grep -i "DB_"
 
 echo "🔧 Initializing Iudex database..."
 
@@ -10,9 +11,16 @@ DB_PORT="${DB_PORT:-5432}"
 DB_USER="${DB_USER:-iudex}"
 DB_NAME="${DB_NAME:-iudex_tests}"
 
-# Wait for Postgres
-until PGPASSWORD=$DB_PASSWORD psql -h "$DB_HOST" -U "$DB_USER" -d postgres -c '\q' 2>/dev/null; do
-  echo "⏳ Waiting for PostgreSQL at $DB_HOST:$DB_PORT..."
+# Wait for Postgres using nc (netcat) which is available in alpine
+echo "⏳ Waiting for PostgreSQL at $DB_HOST:$DB_PORT..."
+max_attempts=30
+attempt=0
+until nc -z "$DB_HOST" "$DB_PORT" 2>/dev/null; do
+  attempt=$((attempt + 1))
+  if [ $attempt -ge $max_attempts ]; then
+    echo "❌ Failed to connect to PostgreSQL after $max_attempts attempts"
+    exit 1
+  fi
   sleep 2
 done
 
