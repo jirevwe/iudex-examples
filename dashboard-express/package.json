@@ -8,7 +8,7 @@
     "start": "sh ./scripts/start-server.sh",
     "dev": "sh ./scripts/start-server.sh",
     "test": "sh ./scripts/run-tests.sh",
-    "test:verbose": "sh ./run-tests.sh --verbose",
+    "test:verbose": "sh ./scripts/run-tests.sh",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f dashboard",
