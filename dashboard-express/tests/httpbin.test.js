@@ -42,6 +42,34 @@ describe('HTTPBin API Tests', { prefix: 'httpbin.api' }, () => {
     expect(response.data.json.type).toBe('testing-framework');
   }, { id: 'post_json' });
 
+  test('[DELETE TEST] should not post JSON data', async (context) => {
+    const payload = {
+      name: 'Iudex',
+      type: 'testing-framework',
+      timestamp: context.testData.timestamp
+    };
+
+    const response = await context.request.post(`${baseUrl}/post`, payload);
+
+    expect(response.status).toBe(200);
+    expect(response.data.json.name).toBe('Iudex');
+    expect(response.data.json.type).toBe('testing-framework');
+  }, { id: 'delete_test_should_not_post_json_data' });
+
+  test('[DELETE TEST] should not post JSON data', async (context) => {
+    const payload = {
+      name: 'Iudex',
+      type: 'testing-framework',
+      timestamp: context.testData.timestamp
+    };
+
+    const response = await context.request.post(`${baseUrl}/post`, payload);
+
+    expect(response.status).toBe(200);
+    expect(response.data.json.name).toBe('Iudex');
+    expect(response.data.json.type).toBe('testing-framework');
+  });
+
   test('should handle custom headers', async (context) => {
     const response = await context.request.get(`${baseUrl}/headers`, {
       headers: {
