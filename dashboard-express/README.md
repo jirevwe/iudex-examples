@@ -36,7 +36,10 @@ npm test
 open http://localhost:3000/test-dashboard
 ```
 
-**Note:** The example uses port **5433** for Postgres to avoid conflicts with local PostgreSQL installations on port 5432.
+**Note:**
+- The example uses port **5432** for Postgres to avoid conflicts with local PostgreSQL installations on port 5432
+- Database migrations run **automatically** on first test execution (`autoMigrate: true`)
+- To run migrations manually: `npm run db:migrate`
 
 ### Start the Dashboard Server
 
