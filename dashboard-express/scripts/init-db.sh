@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+
 echo "🔧 Initializing Iudex database..."
 
 # Load environment or use defaults
@@ -17,6 +18,16 @@ done
 
 echo "✅ PostgreSQL is ready"
 
-# Database already created by docker-entrypoint-initdb.d
-echo "📊 Database '$DB_NAME' initialized with schema"
+# Run migrations (if not using autoMigrate)
+if [ "${AUTO_MIGRATE}" = "false" ]; then
+  echo "🔄 Running database migrations..."
+  cd ../../iudex
+  npx iudex db:migrate -c ../iudex-examples/dashboard-express/iudex.config.js
+  cd ../iudex-examples/dashboard-express
+  echo "✅ Migrations completed"
+else
+  echo "📊 Database '$DB_NAME' ready"
+  echo "💡 Migrations will run automatically on first test execution (autoMigrate: true)"
+fi
+
 echo "✅ Ready to accept test results!"

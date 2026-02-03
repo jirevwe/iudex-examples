@@ -14,6 +14,10 @@
     "docker:logs": "docker compose logs -f dashboard",
     "docker:reset": "docker compose down -v && docker compose up -d",
     "db:health": "curl http://localhost:3000/test-dashboard/api/db-health"
+    "db:health": "curl http://localhost:3000/test-dashboard/api/db-health",
+    "db:migrate": "cd ../../iudex && npx iudex db:migrate -c ../iudex-examples/dashboard-express/iudex.config.js",
+    "db:migrate:status": "cd ../../iudex && npx iudex db:migrate --status -c ../iudex-examples/dashboard-express/iudex.config.js",
+    "db:migrate:create": "cd ../../iudex && npx iudex db:migrate --create"
   },
   "dependencies": {
     "iudex": "file:../../iudex",

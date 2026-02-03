@@ -26,10 +26,10 @@ This example showcases **ALL** Postgres reporter features:
 ### Setup (3 commands)
 
 ```bash
-# 1. Start Postgres (uses port 5433 to avoid conflicts)
+# 1. Start Postgres
 docker compose up -d postgres
 
-# 2. Run tests (automatically loads .env and persists to database)
+# 2. Run tests (automatically loads .env and runs migrations on first execution)
 npm test
 
 # 3. Open dashboard
@@ -203,6 +203,71 @@ npm test
 # Look for: "Using batched mode for X tests (Y batches)"
 ```
 
+## 🔄 Database Migration Management
+
+This example uses [node-pg-migrate](https://github.com/salsita/node-pg-migrate) for database schema versioning.
+
+### How Migrations Work
+
+**Automatic Mode (Default):**
+```javascript
+// iudex.config.js
+database: {
+  autoMigrate: true  // Migrations run automatically on first connection
+}
+```
+
+When `autoMigrate: true` (default for this example):
+1. First test run checks if database needs migration
+2. If needed, runs all pending migrations automatically
+3. Subsequent runs skip migration check (already applied)
+
+**Manual Mode:**
+```bash
+# Set in iudex.config.js or env
+AUTO_MIGRATE=false
+
+# Then run migrations explicitly
+npm run db:migrate
+```
+
+### Migration Commands
+
+```bash
+# Check what migrations will run (dry-run)
+npm run db:migrate:status
+
+# Run all pending migrations
+npm run db:migrate
+
+# Create a new migration file
+npm run db:migrate:create add_custom_field
+```
+
+### When to Use Each Mode
+
+**Use Auto-Migration (default) for:**
+- ✅ Local development
+- ✅ Quick prototyping
+- ✅ Developer onboarding
+- ✅ This example project
+
+**Use Manual Migration for:**
+- ✅ Production deployments
+- ✅ Team coordination (review migrations first)
+- ✅ CI/CD pipelines with explicit control
+- ✅ Database migration audits
+
+### Migration Files
+
+Migrations are stored in: `../../iudex/database/migrations/`
+
+Current migrations:
+- `1704067200000_create-core-tables.js` - Core schema
+- `1704067300000_create-analytics-views.js` - Analytics views
+- `1704067400000_add-sample-data-and-comments.js` - Sample data
+- `1704067500000_add-deleted-tests-tracking.js` - Deletion detection
+
 ## 💻 Local Development
 
 ### Environment Variables
@@ -241,14 +306,17 @@ docker-compose up -d
 ### Development Commands
 
 ```bash
-npm run dev           # Start server with hot reload
-npm test              # Run tests with Postgres reporting
-npm test:verbose      # Run tests with verbose output
-npm run docker:up     # Start Docker services
-npm run docker:down   # Stop Docker services
-npm run docker:logs   # View dashboard logs
-npm run docker:reset  # Reset everything (fresh start)
-npm run db:health     # Check database connection
+npm run dev                 # Start server with hot reload
+npm test                    # Run tests with Postgres reporting
+npm test:verbose            # Run tests with verbose output
+npm run docker:up           # Start Docker services
+npm run docker:down         # Stop Docker services
+npm run docker:logs         # View dashboard logs
+npm run docker:reset        # Reset everything (fresh start)
+npm run db:health           # Check database connection
+npm run db:migrate          # Run database migrations
+npm run db:migrate:status   # Check migration status
+npm run db:migrate:create   # Create new migration file
 ```
 
 ## 🔄 CI/CD Setup
@@ -267,16 +335,24 @@ This example includes a complete GitHub Actions workflow that demonstrates:
 
 1. Create Managed Database (PostgreSQL 15+)
 2. Note connection details
-3. Initialize schema:
+3. Run migrations:
    ```bash
-   psql "postgresql://user:pass@host:port/db?sslmode=require" < ../../iudex/database/schema.sql
+   # Set environment variables
+   export DB_HOST=your-host.db.ondigitalocean.com
+   export DB_PORT=25060
+   export DB_NAME=iudex_production
+   export DB_USER=iudex
+   export DB_PASSWORD=your-secure-password
+
+   # Run migrations
+   npm run db:migrate
    ```
 
 **Option 2: AWS RDS**
 
 1. Create RDS PostgreSQL instance
 2. Configure security groups
-3. Initialize schema (same as above)
+3. Run migrations (same as above)
 
 ### Configure GitHub Secrets
 
@@ -498,14 +574,30 @@ docker network inspect dashboard-express_iudex-network
 
 **Symptom:** "relation 'test_runs' does not exist"
 
-**Solution:**
+**Cause:** Migrations haven't run yet
+
+**Solutions:**
+
+**Option 1: Run migrations manually**
+```bash
+npm run db:migrate
+```
+
+**Option 2: Let tests run migrations automatically (default)**
+```bash
+# Just run tests - migrations run automatically on first execution
+npm test
+```
+
+**Option 3: Reset database and start fresh**
 ```bash
 # Reset database and reinitialize
 docker-compose down -v
 docker-compose up -d
+npm test  # Migrations run automatically
 ```
 
-The schema is automatically loaded from `../../iudex/database/schema.sql` on first start.
+**Note:** The example uses `autoMigrate: true` in `iudex.config.js`, so migrations run automatically on first test execution.
 
 ### Port 3000 Already in Use
 
@@ -556,7 +648,15 @@ The Postgres reporter uses 5 core tables:
 - **test_history** - Audit trail of test changes
 - **test_results** - Immutable log of individual results
 
-Schema location: `../../iudex/database/schema.sql`
+**Schema Management:**
+- Migrations are in: `../../iudex/database/migrations/`
+- Auto-applied on first test run (configurable via `autoMigrate`)
+- Or run manually: `npm run db:migrate`
+
+**View current schema:**
+```bash
+docker compose exec postgres psql -U iudex -d iudex_tests -c "\d"
+```
 
 ## 🤝 Team Collaboration Workflow
 
