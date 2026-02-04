@@ -51,7 +51,7 @@ describe('HTTPBin API Tests', { prefix: 'httpbin.api' }, () => {
 
     const response = await context.request.post(`${baseUrl}/post`, payload);
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(400);
     expect(response.data.json.name).toBe('Iudex');
     expect(response.data.json.type).toBe('testing-framework');
   }, { id: 'delete_test_should_not_post_json_data' });
@@ -65,7 +65,7 @@ describe('HTTPBin API Tests', { prefix: 'httpbin.api' }, () => {
 
     const response = await context.request.post(`${baseUrl}/post`, payload);
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(400);
     expect(response.data.json.name).toBe('Iudex');
     expect(response.data.json.type).toBe('testing-framework');
   });
@@ -140,7 +140,7 @@ describe('HTTPBin API Tests', { prefix: 'httpbin.api' }, () => {
     expect(response.data.user).toBe('user');
   }, { id: 'basic_auth' });
 
-  test('should handle query parameters', async (context) => {
+  test.skip('[SKIPPED] skip this test, cos why not?', async (context) => {
     const params = {
       search: 'api testing',
       limit: 10,
@@ -153,7 +153,7 @@ describe('HTTPBin API Tests', { prefix: 'httpbin.api' }, () => {
     expect(response.status).toBe(200);
     expect(response.data.args.search[0]).toBe('api testing');
     expect(response.data.args.limit[0]).toBe('10');
-  }, { id: 'query_params' });
+  }, { id: 'skipped_test' });
 
   // This test demonstrates deletion detection
   // Comment it out and run tests again to see it marked as deleted in analytics
